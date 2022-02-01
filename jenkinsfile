@@ -4,10 +4,12 @@ stage('Build') {
     node {
         echo "Building"
         checkout scm
-        app = docker.build("frontendcontainer")
+        app = docker.build("public.ecr.aws/t5j7w7w3/mnvrampup:frontend")
+        
         //apply the dockerfile and push the image, nothing else needed
     }
 }
+//tag:public.ecr.aws/t5j7w7w3/mnvrampup
 
 //lock(resource: 'myResource', inversePrecedence: true){
 //    milestone()
@@ -21,6 +23,6 @@ stage('Deploy') {
     milestone()
     node {
         echo "Deploying"
-        //Pull the images in the EC2 Instances and make them run
+        
     }
 }
