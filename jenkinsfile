@@ -4,7 +4,7 @@ stage('Build') {
     node {
         echo "Building"
         checkout scm
-        app = docker.build("public.ecr.aws/t5j7w7w3/mnvrampup:frontend")
+        app = docker.build("419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-repo:frontend")
         
         //apply the dockerfile and push the image, nothing else needed
     }
@@ -14,7 +14,7 @@ stage('Deploy') {
     milestone()
     node {
         echo "Deploying"
-        docker.withRegistery("https://419466290453.dkr.ecr.sa-east-1.amazonaws.com", "aws_credentials"){
+        docker.withRegistry("https://419466290453.dkr.ecr.sa-east-1.amazonaws.com", "ecr:sa-east-1:aws_credentials"){
             app.push()
         }
     }
