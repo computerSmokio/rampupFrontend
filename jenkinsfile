@@ -9,20 +9,12 @@ stage('Build') {
         //apply the dockerfile and push the image, nothing else needed
     }
 }
-//tag:public.ecr.aws/t5j7w7w3/mnvrampup
-
-//lock(resource: 'myResource', inversePrecedence: true){
-//    milestone()
-//    node {
-//        echo "testing"
-//    }
-//}
-
 stage('Deploy') {
     input "Deploy?"
     milestone()
     node {
         echo "Deploying"
-        
+        sh "aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/t5j7w7w3"
+        sh "docker push public.ecr.aws/t5j7w7w3/mnvrampup:frontend"
     }
 }
