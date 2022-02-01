@@ -13,10 +13,10 @@ stage('Build') {
 // milestone at the end of the lock, all jobs started prior to the current
 // build that are still waiting for the lock will be aborted
 lock(resource: 'myResource', inversePrecedence: true){
+    milestone()
     node {
         echo "testing"
     }
-    milestone()
 }
 
 // The Deploy stage does not limit concurrency but requires manual input
