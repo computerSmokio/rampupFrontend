@@ -13,16 +13,8 @@ stage('Build') {
 // milestone at the end of the lock, all jobs started prior to the current
 // build that are still waiting for the lock will be aborted
 lock(resource: 'myResource', inversePrecedence: true){
-    node('test') {
-        stage('Unit Tests') {
-            //White box tests
-            echo "Unit Tests"
-        }
-        stage('System Tests') {
-            //Black box tests (Supongo que sera aplicar npm test sobre ambos y crear el test para el frontend)
-            echo "System Tests"
-            
-        }
+    node {
+        echo "testing"
     }
     milestone()
 }
