@@ -1,0 +1,20 @@
+- hosts: ""
+  become: True
+  tasks:
+    - name: Install Dependencies (pip)
+      yum:
+        name: python-pip
+        state: present
+    - name: Install Dependencies (docker pip module)
+      pip: 
+        name: docker-py
+        state: present
+    - name: Pull and Run (Frontend_1)
+      docker_container:
+        name: frontend_1
+        image: 419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-repo:frontend
+        state: started
+        ports:
+          - "3030:3030"
+          - "3000:3000"
+       
