@@ -6,10 +6,11 @@
       yum:
         name: docker
         state: present
-    - name: Login AWS private repository
-      cmd: aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 419466290453.dkr.ecr.sa-east-1.amazonaws.com
-      args:
-        warn: no
+    - name: Get password
+      cmd: aws ecr get-login-password --region sa-east-1
+      register: command_pass
+    - name: Login docker repo
+      cmd: docker login --username AWS --password {{command_pass.stdout}} 419466290453.dkr.ecr.sa-east-1.amazonaws.com
     - name: Pull container
       docker_container:
         name: frontend_1
