@@ -16,7 +16,7 @@ stage('Push & Deploy') {
     //        app.push()
     //    }
         withCredentials([file(credentialsId:'ssh_keypair', variable:'ssh_key')]){
-            sh 'ansible-playbook -i inventory.yaml -u ec2-user --private-key $ssh_key deploy_containers.yaml'
+            sh 'ansible-playbook -i inventory.yaml -u ec2-user --private-key ${ssh_key} deploy_containers.yaml'
         }
     }
 }
