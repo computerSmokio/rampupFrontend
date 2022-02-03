@@ -14,10 +14,10 @@
         name: docker-py
         state: present
     - name: Get password
-      cmd: aws ecr get-login-password --region sa-east-1
+      shell: aws ecr get-login-password --region sa-east-1
       register: command_pass
     - name: Login docker repo
-      cmd: docker login --username AWS --password {{command_pass.stdout}} 419466290453.dkr.ecr.sa-east-1.amazonaws.com
+      shell: docker login --username AWS --password {{command_pass.stdout}} 419466290453.dkr.ecr.sa-east-1.amazonaws.com
     - name: Pull container
       docker_container:
         name: frontend_1
