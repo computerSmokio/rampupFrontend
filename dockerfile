@@ -1,13 +1,10 @@
 FROM node:17-alpine3.14
+RUN mkdir /app
+WORKDIR /app
 
-WORKDIR /usr/src/app
-
-COPY ./package.json /usr/src/app/
+COPY . /app
 
 RUN npm install
-
-COPY ./*.* /usr/src/app/
-COPY ./public /usr/src/app/public
 
 ARG FRONTEND_PORT
 ARG BACKEND_PORT

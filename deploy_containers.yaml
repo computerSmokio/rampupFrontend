@@ -1,15 +1,14 @@
-- hosts: ""
+- name: Deploy Containers
+  hosts: ec2
   become: True
   tasks:
-    - name: Install Dependencies (pip)
+    - name: Install Dependencies (docker)
       yum:
-        name: python-pip
+        name: docker
         state: present
-    - name: Install Dependencies (docker pip module)
-      pip: 
-        name: docker-py
-        state: present
-    - name: Pull and Run (Frontend_1)
+    - name: Login AWS private repository
+      command: aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 419466290453.dkr.ecr.sa-east-1.amazonaws.com
+    - name: Pull container
       docker_container:
         name: frontend_1
         image: 419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-repo:frontend
