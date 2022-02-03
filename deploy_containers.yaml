@@ -6,6 +6,13 @@
       yum:
         name: docker
         state: present
+    - name: Install Dependencies (pip)
+     yum:
+        name: python-pip
+    - name: Install Dependencies (docker pip module)
+      pip: 
+        name: docker-py
+        state: present
     - name: Get password
       cmd: aws ecr get-login-password --region sa-east-1
       register: command_pass
