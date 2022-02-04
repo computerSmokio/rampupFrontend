@@ -20,7 +20,7 @@
       shell: docker login --username AWS --password {{command_pass.stdout}} 419466290453.dkr.ecr.sa-east-1.amazonaws.com
     - name: Pull container
       docker_container:
-        name: frontend_1
+        name: frontend
         image: 419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-repo:frontend
         state: started
         ports:
