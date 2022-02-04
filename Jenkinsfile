@@ -3,15 +3,15 @@ stage('GitCheckout & Build') {
     milestone()
     node {
         checkout scm
-        app = docker.build("419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-repo:frontend")
-        //apply the dockerfile and push the image, nothing else needed
+    //    app = docker.build("419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-repo:frontend")
+    //    //apply the dockerfile and push the image, nothing else needed
     }
 }
 stage('Push & Deploy') {
     milestone()
     node {
         docker.withRegistry("https://419466290453.dkr.ecr.sa-east-1.amazonaws.com", "ecr:sa-east-1:aws_credentials"){
-            app.push()
+        //    app.push()
         }
         withCredentials([aws(credentialsId: 'aws_credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
             writeFile file: 'inventory.ini', text: "[ec2]\n"
