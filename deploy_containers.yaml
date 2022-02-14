@@ -21,7 +21,7 @@
     - name: Pull container
       docker_container:
         name: frontend
-        image: 419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-repo:frontend
+        image: 419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-frontend:latest
         pull: True
         state: started
         ports:
