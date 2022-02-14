@@ -19,7 +19,7 @@ stage('Push & Deploy') {
             untaggedImages  = sh(
                 script: "aws ecr list-images --region sa-east-1 --repository-name rampup-repo --filter tagStatus=UNTAGGED --query 'imageIds[*]' --output json ",
                 returnStdout: true)
-            sh "aws ecr batch-delete-image --region sa-east-1 --repository-name rampup-repo --image-ids ${untaggedImages} || true"
+            sh "aws ecr batch-delete-image --region sa-east-1 --repository-name rampup-repo --image-ids '${untaggedImages}' || true"
         }
         withCredentials([file(credentialsId:'ssh_keypair', variable:'ssh_key')]){
             sh "ansible-playbook -i inventory.ini -u ec2-user --private-key $ssh_key deploy_containers.yaml"
