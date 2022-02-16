@@ -25,7 +25,9 @@
         pull: True
         state: started
         ports:
-          - "3030:3030"
-          - "3000:3000"
-        env_file: "/home/ec2-user/env.txt"
+          - "{{ frontend_port }}:{{ frontend_port }}"
+        env:
+          BACKEND_URL: "{{ backend_url }}"
+          PORT: "{{ frontend_port }}"
+
        
