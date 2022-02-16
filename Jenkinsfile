@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment{
         backend_url = credentials('backend_url')
+        backend_port = credentials('backend_port')
         frontend_port = credentials('frontend_port')
     }
     stages{
@@ -33,7 +34,7 @@ pipeline{
                         sh "aws ecr batch-delete-image --region sa-east-1 --repository-name rampup-frontend --image-ids '${untaggedImages}' || true"
                     }
                     withCredentials([file(credentialsId:'ssh_keypair', variable:'ssh_key')]){
-                        sh "ansible-playbook -i inventory.ini -u ec2-user --private-key $ssh_key deploy_containers.yaml --extra-vars 'frontend_port=$frontend_port backend_url=$backend_url'"
+                        sh "ansible-playbook -i inventory.ini -u ec2-user --private-key $ssh_key deploy_containers.yaml --extra-vars 'frontend_port=$frontend_port backend_url=$backend_url backend_port=$backend_port'"
                     }
                 }
             }
