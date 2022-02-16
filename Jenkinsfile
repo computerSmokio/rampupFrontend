@@ -9,7 +9,7 @@ pipeline{
             steps{
                 checkout scm
                 script{
-                    app = docker.build("419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-fronten:latest")
+                    app = docker.build("419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-frontend:latest")
                 }
             }
         }
