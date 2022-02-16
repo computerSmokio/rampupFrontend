@@ -21,8 +21,8 @@ pipeline{
                     }
 
                 }
-                sh "docker rmi $(docker image ls --filter reference='*/rampup-frontend:*' --format {{.ID}})"
-                sh "docker rmi $(docker image ls --filter 'dangling=true' --format {{.ID}})"
+                sh "docker rmi \$(docker image ls --filter reference='*/rampup-frontend:*' --format {{.ID}})"
+                sh "docker rmi \$(docker image ls --filter 'dangling=true' --format {{.ID}})"
                 script{
                     withCredentials([aws(credentialsId: 'aws_credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                         writeFile file: 'inventory.ini', text: "[ec2]\n"
