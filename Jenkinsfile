@@ -12,8 +12,6 @@ pipeline{
                     sh "docker rmi \$(docker image ls --filter 'dangling=true' --format {{.ID}})|| true"
                     sh "docker rmi \$(docker image ls --filter reference='*/rampup-frontend:*' --format {{.ID}})|| true"
                     withCredentials([aws(credentialsId: 'aws_credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                        writeFile file: 'inventory.ini', text: "[ec2]\n"
-                        sh "aws ec2 describe-instances --filter Name=instance.group-name,Values=sg_frontend --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> inventory.ini"
                         untaggedImages  = sh(
                             script: "aws ecr list-images --region sa-east-1 --repository-name rampup-frontend --filter tagStatus=UNTAGGED --query 'imageIds[*]' --output json ",
                             returnStdout: true)
