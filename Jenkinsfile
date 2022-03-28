@@ -1,30 +1,16 @@
 pipeline{
     agent any
-    environment{
-        backend_url = credentials('backend_url')
-        backend_port = credentials('backend_port')
-        frontend_port = credentials('frontend_port')
-    }
     stages{
-        stage('GitCheckout & Build') {
+        stage('GitCheckout, Build & Push') {
             steps{
                 checkout scm
                 script{
                     app = docker.build("419466290453.dkr.ecr.sa-east-1.amazonaws.com/rampup-frontend:latest")
-                }
-            }
-        }
-        stage('Push & Deploy') {
-            steps {
-                script{
                     docker.withRegistry("https://419466290453.dkr.ecr.sa-east-1.amazonaws.com", "ecr:sa-east-1:aws_credentials"){
                         app.push()
                     }
-
-                }
-                sh "docker rmi \$(docker image ls --filter reference='*/rampup-frontend:*' --format {{.ID}})|| true"
-                sh "docker rmi \$(docker image ls --filter 'dangling=true' --format {{.ID}})|| true"
-                script{
+                    sh "docker rmi \$(docker image ls --filter 'dangling=true' --format {{.ID}})|| true"
+                    sh "docker rmi \$(docker image ls --filter reference='*/rampup-frontend:*' --format {{.ID}})|| true"
                     withCredentials([aws(credentialsId: 'aws_credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                         writeFile file: 'inventory.ini', text: "[ec2]\n"
                         sh "aws ec2 describe-instances --filter Name=instance.group-name,Values=sg_frontend --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >> inventory.ini"
@@ -33,10 +19,14 @@ pipeline{
                             returnStdout: true)
                         sh "aws ecr batch-delete-image --region sa-east-1 --repository-name rampup-frontend --image-ids '${untaggedImages}' || true"
                     }
-                    withCredentials([file(credentialsId:'ssh_keypair', variable:'ssh_key')]){
-                        sh "ansible-playbook -i inventory.ini -u ec2-user --private-key $ssh_key deploy_containers.yaml --extra-vars 'frontend_port=$frontend_port backend_url=$backend_url backend_port=$backend_port'"
-                    }
                 }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                    withCredentials([file(credentialsId:'ssh_keypair', variable:'ssh_key')]){
+                        sh "chef-run master-node /cookbooks/deploy_instances/recipes/deploy_frontend.rb -i ${ssh_key} --chef-license"
+                    }
             }
         }
     }
