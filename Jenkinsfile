@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    environment{
+        bk_url=credentials('bk_url')
+        fr_port=credentials('fr_port')
+    }
     stages{
         stage('GitCheckout, Build & Push') {
             steps{
@@ -27,6 +31,7 @@ pipeline{
         stage('Deploy') {
             steps {
                     withCredentials([file(credentialsId:'ssh_keypair', variable:'ssh_key')]){
+                        sh "ssh -o StrictHostKeyChecking=no -i ${ssh_key} ec2-user@${master_node_ip} kubectl create secret generic frontend-secrets --from-literal=fr.port=${fr_port} --from-literal=bk.url=${bk_url} -n rampup-frontend-ns"
                         sh "ssh -o StrictHostKeyChecking=no -i ${ssh_key} ec2-user@${master_node_ip} sudo chef-client -o deploy_instances::deploy_frontend"
                     }
             }
