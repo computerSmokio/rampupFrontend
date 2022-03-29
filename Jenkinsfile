@@ -31,6 +31,7 @@ pipeline{
         stage('Deploy') {
             steps {
                     withCredentials([file(credentialsId:'ssh_keypair', variable:'ssh_key')]){
+                        sh "ssh -o StrictHostKeyChecking=no -i ${ssh_key} ec2-user@${master_node_ip} kubectl delete secret frontend-secrets -n rampup-frontend-ns --ignore-not-found"
                         sh "ssh -o StrictHostKeyChecking=no -i ${ssh_key} ec2-user@${master_node_ip} sudo chef-client -o deploy_instances::deploy_frontend"
                         sh "ssh -o StrictHostKeyChecking=no -i ${ssh_key} ec2-user@${master_node_ip} kubectl create secret generic frontend-secrets --from-literal=fr.port=${fr_port} --from-literal=bk.url=${bk_url} -n rampup-frontend-ns"
                     }
