@@ -1,0 +1,198 @@
+{
+  "RunType": "HTTP",
+  "Labels": "app.movie-ui.com/ , EN2110304",
+  "StartTime": "2022-04-06T14:43:58.287285591-03:00",
+  "RequestedQPS": "500",
+  "RequestedDuration": "1m0s",
+  "ActualQPS": 427.5740131856755,
+  "ActualDuration": 35264070161,
+  "NumThreads": 20,
+  "Version": "1.25.0",
+  "DurationHistogram": {
+    "Count": 15078,
+    "Min": 0.038354482,
+    "Max": 1.111645592,
+    "Sum": 704.1266433290001,
+    "Avg": 0.04669894172496353,
+    "StdDev": 0.012145735256207511,
+    "Data": [
+      {
+        "Start": 0.038354482,
+        "End": 0.04,
+        "Percent": 0.5040456293938188,
+        "Count": 76
+      },
+      {
+        "Start": 0.04,
+        "End": 0.045,
+        "Percent": 49.522483087942696,
+        "Count": 7391
+      },
+      {
+        "Start": 0.045,
+        "End": 0.05,
+        "Percent": 89.07680063668921,
+        "Count": 5964
+      },
+      {
+        "Start": 0.05,
+        "End": 0.06,
+        "Percent": 97.03541583764425,
+        "Count": 1200
+      },
+      {
+        "Start": 0.06,
+        "End": 0.07,
+        "Percent": 98.23584029712164,
+        "Count": 181
+      },
+      {
+        "Start": 0.07,
+        "End": 0.08,
+        "Percent": 98.52765618782333,
+        "Count": 44
+      },
+      {
+        "Start": 0.08,
+        "End": 0.09,
+        "Percent": 99.1112879692267,
+        "Count": 88
+      },
+      {
+        "Start": 0.09,
+        "End": 0.1,
+        "Percent": 99.65512667462528,
+        "Count": 82
+      },
+      {
+        "Start": 0.1,
+        "End": 0.12,
+        "Percent": 99.8408276959809,
+        "Count": 28
+      },
+      {
+        "Start": 0.12,
+        "End": 0.14,
+        "Percent": 99.89388513065393,
+        "Count": 8
+      },
+      {
+        "Start": 0.14,
+        "End": 0.16,
+        "Percent": 99.93367820665871,
+        "Count": 6
+      },
+      {
+        "Start": 0.18,
+        "End": 0.2,
+        "Percent": 99.96683910332935,
+        "Count": 5
+      },
+      {
+        "Start": 0.2,
+        "End": 0.25,
+        "Percent": 99.98673564133175,
+        "Count": 3
+      },
+      {
+        "Start": 0.4,
+        "End": 0.45,
+        "Percent": 99.99336782066587,
+        "Count": 1
+      },
+      {
+        "Start": 1,
+        "End": 1.111645592,
+        "Percent": 100,
+        "Count": 1
+      }
+    ],
+    "Percentiles": [
+      {
+        "Percentile": 50,
+        "Value": 0.04506036217303823
+      },
+      {
+        "Percentile": 75,
+        "Value": 0.048220573440643864
+      },
+      {
+        "Percentile": 90,
+        "Value": 0.051160000000000004
+      },
+      {
+        "Percentile": 99,
+        "Value": 0.08809318181818171
+      },
+      {
+        "Percentile": 99.9,
+        "Value": 0.1430733333333381
+      }
+    ]
+  },
+  "Exactly": 0,
+  "Jitter": false,
+  "Uniform": false,
+  "RunID": 0,
+  "AccessLoggerInfo": "",
+  "RetCodes": {
+    "200": 15078
+  },
+  "Insecure": false,
+  "CACert": "",
+  "Cert": "",
+  "Key": "",
+  "UnixDomainSocket": "",
+  "URL": "http://app.movie-ui.com/",
+  "NumConnections": 1,
+  "Compression": false,
+  "DisableFastClient": false,
+  "HTTP10": false,
+  "DisableKeepAlive": false,
+  "AllowHalfClose": false,
+  "FollowRedirects": false,
+  "Resolve": "",
+  "HTTPReqTimeOut": 3000000000,
+  "UserCredentials": "",
+  "ContentType": "",
+  "Payload": "",
+  "LogErrors": true,
+  "ID": 0,
+  "SequentialWarmup": false,
+  "Sizes": {
+    "Count": 15078,
+    "Min": 2162,
+    "Max": 2167,
+    "Sum": 32673326,
+    "Avg": 2166.953574744661,
+    "StdDev": 0.47955288783766964,
+    "Data": [
+      {
+        "Start": 2162,
+        "End": 2167,
+        "Percent": 100,
+        "Count": 15078
+      }
+    ],
+    "Percentiles": null
+  },
+  "HeaderSizes": {
+    "Count": 15078,
+    "Min": 203,
+    "Max": 208,
+    "Sum": 3135524,
+    "Avg": 207.9535747446611,
+    "StdDev": 0.4795528879695621,
+    "Data": [
+      {
+        "Start": 203,
+        "End": 208,
+        "Percent": 100,
+        "Count": 15078
+      }
+    ],
+    "Percentiles": null
+  },
+  "SocketCount": 160,
+  "AbortOn": 0
+}
