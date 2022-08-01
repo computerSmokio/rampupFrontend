@@ -1,16 +1,13 @@
-FROM node:17-alpine3.14
+FROM node:16-alpine
 
-RUN mkdir /app
 WORKDIR /app
 
 COPY . /app
 
 RUN npm install
 
-ARG FRONTEND_PORT
-ARG BACKEND_PORT
+ARG FRONTEND_PORT=3030
 
 EXPOSE ${FRONTEND_PORT}
-EXPOSE ${BACKEND_PORT}
 
 CMD ["node", "server.js"]
